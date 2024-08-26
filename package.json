@@ -18,5 +18,5 @@
 		"firebase-functions": "^5.1.0",
 		"nuxt-vuefire": "^1.0.4"
 	},
-	"packageManager": "pnpm@^8.6.1",
+	"packageManager": "pnpm@^8.6.1"
   }
