@@ -11954,6 +11954,18 @@ fsevents@^2.3.2, fsevents@~2.3.2, fsevents@~2.3.3:
   resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
   integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
+"FUCKINGFUCKFUCK@file:":
+  version "1.0.0"
+  resolved "file:"
+  dependencies:
+    "@firebase/app-types" "^0.9.2"
+    firebase "^10.13.0"
+    firebase-admin "^12.4.0"
+    firebase-functions "^5.1.0"
+    FUCKINGFUCKFUCK "file:"
+    nuxt-vuefire "^1.0.4"
+    test "file:"
+
 function-bind@^1.1.1, function-bind@^1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz"
