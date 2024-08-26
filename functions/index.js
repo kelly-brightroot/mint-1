@@ -1,19 +1,36 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+var functions = require('firebase-functions');
+var admin = require('firebase-admin')
+admin.initializeApp(functions.config().firebase);
+// // Start writing Firebase Functions
+// // https://firebase.google.com/functions/write-firebase-functions
+//
+// exports.helloWorld = functions.https.onRequest((request, response) => {
+//  response.send("Hello from Firebase!");
+// })
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+exports.sendMessageNotification = functions.database.ref('data/{messageID}').onWrite(event => {
+    if (event.data.previous.exists()) {
+        return;
+    }
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+    admin.database().ref('data').child(event.params.messageID).once('value').then(function(snap) {
+        var messageData = snap.val();
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+        var topic = messageData.token;
+        var payload = {
+            notification: {
+                title: "You got a new Message",
+                body: messageData.data,
+                icon: 'https://cdn4.iconfinder.com/data/icons/google-i-o-2016/512/google_firebase-2-128.png'
+            }
+        };
+
+        admin.messaging().sendToDevice(topic, payload)
+            .then(function(response) {
+                console.log("Successfully sent message:", response);
+            })
+            .catch(function(error) {
+                console.log("Error sending message:", error);
+            });
+    });
+});
