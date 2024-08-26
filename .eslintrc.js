@@ -1,13 +1,17 @@
+/* This file is automatically added by @npmcli/template-oss. Do not edit. */
+
+'use strict'
+
+const { readdirSync: readdir } = require('fs')
+
+const localConfigs = readdir(__dirname)
+  .filter((file) => file.startsWith('.eslintrc.local.'))
+  .map((file) => `./${file}`)
+
 module.exports = {
-    extends: [
-        // add more generic rulesets here, such as:
-        'eslint:recommended',
-        'plugin:vue/essential',
-    ],
-    rules: {
-        'vue/no-unused-vars': 'error',
-        'eqeqeq': 'warn',
-        'block-spacing': 'warn',
-        'space-before-function-paren': 'warn'
-    }
+  root: true,
+  extends: [
+    '@npmcli',
+    ...localConfigs,
+  ],
 }
